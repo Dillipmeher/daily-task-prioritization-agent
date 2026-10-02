@@ -10,11 +10,7 @@ layout="wide"
 
 st.title("📋 Daily Task Prioritization Agent")
 
-st.write(
-"Upload your task list and generate a prioritized daily plan."
-)
-
-# Sample task data
+st.write("Upload your task list and generate a prioritized daily plan.")
 
 sample_data = pd.DataFrame({
 "Task": [
@@ -79,29 +75,23 @@ sample_data = pd.DataFrame({
 ]
 })
 
-# Create CSV in memory
-
 csv_buffer = StringIO()
 sample_data.to_csv(csv_buffer, index=False)
-
-# Download sample
 
 st.subheader("📥 Step 1: Download Sample Format")
 
 st.write(
-"Download this sample CSV file, open it in Excel, "
+"Download the sample CSV, open it in Excel, "
 "replace the sample tasks with your own tasks, "
 "and save it as CSV."
 )
 
 st.download_button(
-label="⬇️ Download Sample Tasks CSV",
-data=csv_buffer.getvalue(),
-file_name="sample_tasks.csv",
-mime="text/csv"
+"⬇️ Download Sample Tasks CSV",
+csv_buffer.getvalue(),
+"sample_tasks.csv",
+"text/csv"
 )
-
-# Upload file
 
 st.subheader("📤 Step 2: Upload Your Task File")
 
@@ -114,7 +104,6 @@ if uploaded_file is not None:
 
 ```
 try:
-
     df = pd.read_csv(uploaded_file)
 
     st.success("✅ File uploaded successfully!")
@@ -131,16 +120,10 @@ try:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.metric(
-            "Total Tasks",
-            len(df)
-        )
+        st.metric("Total Tasks", len(df))
 
     with col2:
-        st.metric(
-            "Total Columns",
-            len(df.columns)
-        )
+        st.metric("Total Columns", len(df.columns))
 
 except Exception as e:
 
