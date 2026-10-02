@@ -14,11 +14,7 @@ st.write(
 "Upload your task list and generate a prioritized daily plan."
 )
 
-# --------------------------------------------------
-
-# Sample CSV Data
-
-# --------------------------------------------------
+# Sample task data
 
 sample_data = pd.DataFrame({
 "Task": [
@@ -33,79 +29,69 @@ sample_data = pd.DataFrame({
 "Review price variance dashboard",
 "Send pending quotation requests"
 ],
-
-```
 "Priority": [
-    "High",
-    "High",
-    "High",
-    "Medium",
-    "Medium",
-    "High",
-    "Low",
-    "Medium",
-    "Medium",
-    "High"
+"High",
+"High",
+"High",
+"Medium",
+"Medium",
+"High",
+"Low",
+"Medium",
+"Medium",
+"High"
 ],
-
 "Due_Date": [
-    "2026-10-02",
-    "2026-10-02",
-    "2026-10-02",
-    "2026-10-03",
-    "2026-10-03",
-    "2026-10-02",
-    "2026-10-04",
-    "2026-10-04",
-    "2026-10-03",
-    "2026-10-02"
+"2026-10-02",
+"2026-10-02",
+"2026-10-02",
+"2026-10-03",
+"2026-10-03",
+"2026-10-02",
+"2026-10-04",
+"2026-10-04",
+"2026-10-03",
+"2026-10-02"
 ],
-
 "Estimated_Minutes": [
-    90,
-    45,
-    60,
-    45,
-    60,
-    30,
-    30,
-    45,
-    60,
-    30
+90,
+45,
+60,
+45,
+60,
+30,
+30,
+45,
+60,
+30
 ],
-
 "Category": [
-    "Finance",
-    "Accounts",
-    "Sourcing",
-    "Quality",
-    "Sourcing",
-    "Purchase",
-    "Admin",
-    "Sourcing",
-    "Analytics",
-    "Sourcing"
+"Finance",
+"Accounts",
+"Sourcing",
+"Quality",
+"Sourcing",
+"Purchase",
+"Admin",
+"Sourcing",
+"Analytics",
+"Sourcing"
 ]
-```
-
 })
 
-# Convert sample data to CSV in memory
+# Create CSV in memory
 
 csv_buffer = StringIO()
 sample_data.to_csv(csv_buffer, index=False)
 
-# --------------------------------------------------
-
-# Download Sample File
-
-# --------------------------------------------------
+# Download sample
 
 st.subheader("📥 Step 1: Download Sample Format")
 
 st.write(
-"Download the sample CSV file, enter your own tasks, "
-"and upload it below."
+"Download this sample CSV file, open it in Excel, "
+"replace the sample tasks with your own tasks, "
+"and save it as CSV."
 )
 
 st.download_button(
@@ -115,11 +101,7 @@ file_name="sample_tasks.csv",
 mime="text/csv"
 )
 
-# --------------------------------------------------
-
-# Upload User File
-
-# --------------------------------------------------
+# Upload file
 
 st.subheader("📤 Step 2: Upload Your Task File")
 
@@ -132,6 +114,7 @@ if uploaded_file is not None:
 
 ```
 try:
+
     df = pd.read_csv(uploaded_file)
 
     st.success("✅ File uploaded successfully!")
