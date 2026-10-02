@@ -1,22 +1,57 @@
+```python
 import streamlit as st
 import pandas as pd
 
-# Create the sample task data
-sample = pd.DataFrame([
-    ["Prepare monthly procurement report", "High", "2026-10-02", 90, "Finance"],
-    ["Follow up with pending vendor invoices", "High", "2026-10-02", 45, "Accounts"],
-    ["Compare supplier quotations for sunflower oil", "High", "2026-10-02", 60, "Sourcing"],
-    ["Review chicken quality complaints", "Medium", "2026-10-03", 45, "Quality"],
-    ["Update supplier rate tracker", "Medium", "2026-10-03", 60, "Sourcing"],
-    ["Check pending PO creation issues", "High", "2026-10-02", 30, "Purchase"],
-    ["Prepare weekly team meeting notes", "Low", "2026-10-04", 30, "Admin"],
-    ["Follow up on new vendor onboarding", "Medium", "2026-10-04", 45, "Sourcing"],
-    ["Review price variance dashboard", "Medium", "2026-10-03", 60, "Analytics"],
-    ["Send pending quotation requests", "High", "2026-10-02", 30, "Sourcing"],
-], columns=["Task", "Priority", "Due_Date", "Estimated_Minutes", "Category"])
+st.set_page_config(
+    page_title="Daily Task Prioritization Agent",
+    page_icon="📋",
+    layout="wide"
+)
 
-# Save the final CSV
-path = "/mnt/data/sample_tasks.csv"
-sample.to_csv(path, index=False)
+st.title("📋 Daily Task Prioritization Agent")
 
-path
+st.write(
+    "Upload your task list and generate a prioritized daily plan."
+)
+
+uploaded_file = st.file_uploader(
+    "Upload your tasks CSV file",
+    type=["csv"]
+)
+
+if uploaded_file is not None:
+
+    try:
+        df = pd.read_csv(uploaded_file)
+
+        st.success("✅ File uploaded successfully!")
+
+        st.subheader("Your Tasks")
+
+        st.dataframe(
+            df,
+            use_container_width=True
+        )
+
+        st.write("### File Summary")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric(
+                "Total Tasks",
+                len(df)
+            )
+
+        with col2:
+            st.metric(
+                "Total Columns",
+                len(df.columns)
+            )
+
+    except Exception as e:
+        st.error(f"❌ Unable to read the CSV file: {e}")
+
+else:
+    st.info("👆 Please upload your tasks CSV file to begin.")
+```
