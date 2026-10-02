@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import pandas as pd
 
@@ -18,7 +17,6 @@ uploaded_file = st.file_uploader(
     "Upload your tasks CSV file",
     type=["csv"]
 )
-
 if uploaded_file is not None:
 
     try:
@@ -54,4 +52,9 @@ if uploaded_file is not None:
 
 else:
     st.info("👆 Please upload your tasks CSV file to begin.")
-```
+:::
+
+**Important:** In GitHub, paste the code **without** the `:::writing...` lines and without any ` ``` ` lines. Your first line must be exactly:
+
+```text
+import streamlit as st
